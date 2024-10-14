@@ -1,8 +1,10 @@
 import { defineField, defineType } from "sanity";
+import {ComposeIcon} from '@sanity/icons'
 
-export const articleType = defineType({
+export const article = defineType({
   name: "article",
   title: "Article",
+  icon: ComposeIcon,
   type: "document",
   fields: [
     defineField({
@@ -30,7 +32,7 @@ export const articleType = defineType({
         dateFormat: "YYYY-MM-DD",
         timeFormat: "HH:mm",
         timeStep: 15,
-        calendarTodayLabel: "Today",
+        // calendarTodayLabel: "Today",
       },
     }),
     defineField({

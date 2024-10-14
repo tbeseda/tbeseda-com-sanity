@@ -1,3 +1,4 @@
-import { articleType } from "./articleType";
+import { article } from "./articleType";
+import { codeExperiment } from "./codExperimentType";
 
-export const schemaTypes = [articleType];
+export const schemaTypes = [article, codeExperiment];
