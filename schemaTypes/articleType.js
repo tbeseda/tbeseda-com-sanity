@@ -1,75 +1,75 @@
-import { defineField, defineType } from "sanity";
-import {ComposeIcon} from '@sanity/icons'
+import { ComposeIcon } from '@sanity/icons'
+import { defineField, defineType } from 'sanity'
 
 export const article = defineType({
-  name: "article",
-  title: "Article",
+  name: 'article',
+  title: 'Article',
   icon: ComposeIcon,
-  type: "document",
+  type: 'document',
   fields: [
     defineField({
-      name: "title",
-      type: "string",
+      name: 'title',
+      type: 'string',
       validation: (rule) => rule.required(),
     }),
     defineField({
-      title: "Slug",
-      name: "slug",
-      type: "slug",
+      title: 'Slug',
+      name: 'slug',
+      type: 'slug',
       validation: (rule) => rule.required(),
       options: {
-        source: "title",
+        source: 'title',
         maxLength: 96,
         isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
     }),
     defineField({
-      title: "Published At",
-      name: "publishedAt",
-      type: "datetime",
+      title: 'Published At',
+      name: 'publishedAt',
+      type: 'datetime',
       validation: (rule) => rule.required(),
       options: {
-        dateFormat: "YYYY-MM-DD",
-        timeFormat: "HH:mm",
+        dateFormat: 'YYYY-MM-DD',
+        timeFormat: 'HH:mm',
         timeStep: 15,
         // calendarTodayLabel: "Today",
       },
     }),
     defineField({
-      title: "Description",
-      name: "description",
-      type: "text",
+      title: 'Description',
+      name: 'description',
+      type: 'text',
       validation: (rule) => rule.required(),
     }),
     defineField({
-      title: "Content",
-      name: "content",
-      type: "array",
+      title: 'Content',
+      name: 'content',
+      type: 'array',
       validation: (rule) => rule.required(),
       of: [
-        { type: "block" },
+        { type: 'block' },
         {
-          type: "image",
+          type: 'image',
           options: {
             hotspot: true,
           },
           fields: [
             {
-              name: "caption",
-              type: "string",
-              title: "Image caption",
-              description: "Caption displayed below the image.",
+              name: 'caption',
+              type: 'string',
+              title: 'Image caption',
+              description: 'Caption displayed below the image.',
             },
             {
-              name: "alt",
-              type: "string",
-              title: "Alternative text",
-              description: "Important for SEO and accessiblity.",
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+              description: 'Important for SEO and accessiblity.',
             },
           ],
         },
-        { type: "code" },
+        { type: 'code' },
       ],
     }),
   ],
-});
+})
