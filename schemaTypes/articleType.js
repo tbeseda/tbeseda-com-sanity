@@ -32,7 +32,6 @@ export const article = defineType({
         dateFormat: 'YYYY-MM-DD',
         timeFormat: 'HH:mm',
         timeStep: 15,
-        // calendarTodayLabel: "Today",
       },
     }),
     defineField({
