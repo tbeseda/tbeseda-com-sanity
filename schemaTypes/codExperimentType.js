@@ -60,7 +60,30 @@ export const codeExperiment = defineType({
       name: 'content',
       title: 'Content',
       // validation: (rule) => rule.required(),
-      of: [defineArrayMember({ type: 'block' })],
+      of: [
+        defineArrayMember({ type: 'block' }),
+        defineArrayMember({
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Image caption',
+              description: 'Caption displayed below the image.',
+            },
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+              description: 'Important for SEO and accessiblity.',
+            },
+          ],
+        }),
+        defineArrayMember({ type: 'code' }),
+      ],
     }),
     defineField({
       type: 'array',
