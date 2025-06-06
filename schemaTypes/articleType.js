@@ -70,5 +70,17 @@ export const article = defineType({
         { type: 'code' },
       ],
     }),
+    defineField({
+      name: 'narrationEnabled',
+      type: 'boolean',
+      title: 'Narration Enabled',
+      description: 'Whether or not to narrate the article.',
+    }),
+    defineField({
+      name: 'narration',
+      type: 'file',
+      title: 'Narration',
+      description: 'Narration file for the article.',
+    }),
   ],
 })
