@@ -9,6 +9,8 @@ export default defineBlueprint({
   resources: [
     defineDocumentFunction({
       name: 'narrate-article',
+      timeout: 120,
+      memory: 2,
       env: {
         ELEVENLABS_API_KEY,
       },
