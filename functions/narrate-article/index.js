@@ -6,13 +6,13 @@ import { documentEventHandler } from '@sanity/functions'
 const { ELEVENLABS_API_KEY } = process.env
 
 const isDevMachine = process.env.HOME?.includes('/Users/')
-const elevenlabs = new ElevenLabsClient({ apiKey: ELEVENLABS_API_KEY })
 
 export const handler = documentEventHandler(async ({ context, event: { data } }) => {
   if (!ELEVENLABS_API_KEY) {
     console.error('❌ ELEVENLABS_API_KEY is not set. Bailing...')
     return
   }
+  const elevenlabs = new ElevenLabsClient({ apiKey: ELEVENLABS_API_KEY })
 
   console.log('🔑 ELEVENLABS_API_KEY is set', `${ELEVENLABS_API_KEY.slice(0, 8)}...`)
 
@@ -44,7 +44,9 @@ export const handler = documentEventHandler(async ({ context, event: { data } })
 
   console.log('🚀 Sanity client created')
 
-  const fullContent = content.map((block) => block.children.map((child) => child.text).join('')).join('\n')
+  const fullContent = content
+    .map((block) => block.children.map((child) => child.text).join(''))
+    .join('\n')
   console.log('🔍 Full content length:', fullContent.length)
 
   let audio
@@ -77,8 +79,7 @@ export const handler = documentEventHandler(async ({ context, event: { data } })
 
     let assetDocument
     try {
-      assetDocument = await client.assets
-        .upload('file', audioBuffer, { filename: fileName })
+      assetDocument = await client.assets.upload('file', audioBuffer, { filename: fileName })
     } catch (error) {
       console.error('⛔️ Error uploading audio', error)
       return
@@ -94,8 +95,8 @@ export const handler = documentEventHandler(async ({ context, event: { data } })
             asset: {
               _type: 'reference',
               _ref: assetDocument._id,
-            }
-          }
+            },
+          },
         })
         .commit()
     } catch (error) {
