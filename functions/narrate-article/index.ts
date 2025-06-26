@@ -1,6 +1,6 @@
 import process from 'node:process'
 import { ElevenLabsClient, play } from '@elevenlabs/elevenlabs-js'
-import { createClient } from '@sanity/client'
+import { type SanityAssetDocument, type SanityDocument, createClient } from '@sanity/client'
 import { documentEventHandler } from '@sanity/functions'
 
 const { ELEVENLABS_API_KEY } = process.env
@@ -49,7 +49,7 @@ export const handler = documentEventHandler(async ({ context, event: { data } })
     .join('\n')
   console.log('🔍 Full content length:', fullContent.length)
 
-  let audio
+  let audio: ReadableStream<Uint8Array>
   try {
     console.log('💬 Narrating article', _id)
     audio = await elevenlabs.textToSpeech.convert('Bj9UqZbhQsanLzgalpEG', {
@@ -71,13 +71,13 @@ export const handler = documentEventHandler(async ({ context, event: { data } })
   else {
     const fileName = `narrated-${_id}.mp3`
 
-    const chunks = []
+    const chunks: Uint8Array[] = []
     for await (const chunk of audio) {
       if (chunk) chunks.push(chunk)
     }
     const audioBuffer = Buffer.concat(chunks)
 
-    let assetDocument
+    let assetDocument: SanityAssetDocument
     try {
       assetDocument = await client.assets.upload('file', audioBuffer, { filename: fileName })
     } catch (error) {
@@ -85,7 +85,7 @@ export const handler = documentEventHandler(async ({ context, event: { data } })
       return
     }
 
-    let updatedDoc
+    let updatedDoc: SanityDocument
     try {
       updatedDoc = await client
         .patch(_id)
@@ -99,11 +99,10 @@ export const handler = documentEventHandler(async ({ context, event: { data } })
           },
         })
         .commit()
+      console.log('✅ Document updated with MP3 file:')
+      console.log(JSON.stringify(updatedDoc?.narration, null, 2))
     } catch (error) {
       console.error('⛔️ Failed to update document:', error.message)
     }
-
-    console.log('✅ Document updated with MP3 file:')
-    console.log(JSON.stringify(updatedDoc?.narration, null, 2))
   }
 })

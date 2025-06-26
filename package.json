@@ -12,20 +12,21 @@
     "start": "sanity start"
   },
   "dependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@elevenlabs/elevenlabs-js": "^2.2.0",
+    "@sanity/blueprints": "0.0.1",
+    "@sanity/cli": "^3.91.0",
+    "@sanity/client": "^7.4.1",
     "@sanity/code-input": "^5.1.2",
+    "@sanity/functions": "1.0.2",
     "@sanity/icons": "^3.7.0",
+    "@sanity/runtime-cli": "^7.6.6",
     "@sanity/vision": "^3.91.0",
+    "@types/react": "^19.1.6",
+    "dotenv": "^16.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "sanity": "^3.91.0",
     "styled-components": "^6.1.18"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@sanity/blueprints": "0.0.1",
-    "@sanity/cli": "^3.91.0",
-    "@sanity/runtime-cli": "^7.6.6",
-    "@types/react": "^19.1.6",
-    "dotenv": "^16.5.0"
   }
 }
